@@ -1,4 +1,4 @@
-function youtube() {
+function Youtube() {
     return (
         <>
             <h1>Youtube here</h1>
@@ -7,4 +7,4 @@ function youtube() {
     )
 }
 
-export default youtube
+export default Youtube
