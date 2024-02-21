@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 
 
@@ -29,20 +29,55 @@ import { useState } from 'react'
 
 // BG changer
 
+// function App() {
+
+//   const [color, setColor] = useState("green")
+
+//   return (
+//     <>
+//       <div className="w-full h-screen duration-200"
+//         style={{ backgroundColor: color }} >
+
+
+//       </div>
+//     </>
+
+//   )
+// }
+
+
+
 function App() {
 
-  const [color, setColor] = useState("green")
+  const [count, setCount] = useState(0)
+  const [line, setLine] = useState("0")
+
+  const adder = useCallback(() => {
+    setCount(prev => prev + 1)
+  }, [])
+
+  const counter = useCallback(() => {
+
+    let str = "0";
+    for (let i = 1; i <= count; i++) {
+      str = i + ", " + str;
+    }
+
+    setLine(str)
+
+  }, [count, setLine])
+
+  useEffect(counter, [count])
+
 
   return (
     <>
-      <div className="w-full h-screen duration-200"
-        style={{ backgroundColor: color }} >
-
-
-      </div>
+      <h1>count is :{count}</h1>
+      <h1>Line is :{line}</h1>
+      <button
+        onClick={adder}
+      >adder</button>
     </>
-
   )
 }
-
 export default App
