@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Footer() {
+    const location = useLocation();
     return (
         <footer className="bg-white border-y">
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
@@ -20,19 +21,20 @@ export default function Footer() {
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Resources</h2>
                             <ul className="text-gray-500 font-medium">
                                 <li className="mb-4">
-                                    <Link to="/" className="hover:underline">
+                                    <Link to="/" className=
+                                        {`hover:underline ${location.pathname === "/" ? "text-orange-600" : "text-gray-700"}`}>
                                         Home
                                     </Link>
                                 </li>
 
                                 <li className="mb-4">
-                                    <Link to="/about" className="hover:underline">
+                                    <Link to="/about" className={`hover:underline ${location.pathname === "/about" ? "text-orange-600" : "text-gray-700"}`}>
                                         About
                                     </Link>
                                 </li>
 
                                 <li >
-                                    <Link to="/contact" className="hover:underline">
+                                    <Link to="/contact" className={`hover:underline ${location.pathname === "/contact" ? "text-orange-600" : "text-gray-700"}`}>
                                         Contact Us
                                     </Link>
                                 </li>
@@ -42,18 +44,22 @@ export default function Footer() {
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Follow us</h2>
                             <ul className="text-gray-500 font-medium">
                                 <li className="mb-4">
-                                    <a
+                                    <Link
+                                        to="/github" className={`hover:underline ${location.pathname === "/github" ? "text-orange-600" : "text-gray-700"}`}>
+                                        Github
+                                    </Link>
+                                    {/* <a
                                         href="https://github.com/hiteshchoudhary"
                                         className="hover:underline"
                                         target="_blank"
                                         rel="noreferrer"
                                     >
                                         Github
-                                    </a>
+                                    </a> */}
                                 </li>
                                 <li>
-                                    <Link to="/" className="hover:underline">
-                                        Discord
+                                    <Link to="/user/Guest" className={`hover:underline ${location.pathname === "/user/Guest" ? "text-orange-600" : "text-gray-700"}`}>
+                                        Guest ID
                                     </Link>
                                 </li>
                             </ul>
