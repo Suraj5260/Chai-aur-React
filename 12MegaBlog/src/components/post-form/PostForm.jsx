@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Input, Select, RTE } from '../index'
-import { Service as appwriteService } from '../../appwrite/config'
+import appwriteService from '../../appwrite/config'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -16,7 +16,7 @@ function PostForm({ post }) {
     })
 
     const navigate = useNavigate()
-    const useData = useSelector(state => state.user.userData)
+    const useData = useSelector(state => state.auth.userData)
 
     const submit = async (data) => {
         if (post) {

@@ -5,7 +5,8 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from "./store/store.js"
 import { AuthLayout } from './components/index.js'
-import { Home, Login, Signup, AllPost, Post, AddPost, EditPost, AllPosts, } from './pages/index.js'
+import { Home, Login, Signup, AllPosts, Post, AddPost, EditPosts } from './pages/index.js'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 
 const router = createBrowserRouter([
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             {""}
-            <EditPost />
+            <EditPosts />
           </AuthLayout>
         )
       }, {
@@ -64,9 +65,9 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>,
+
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+
 )

@@ -2,11 +2,11 @@ import conf from "../conf/conf"
 import { Client, Account, ID } from "appwrite";
 
 export class AuthService {
-    clint = new Client();
+    client = new Client();
     account;
 
     constructor() {
-        this.clint
+        this.client
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId);
 
@@ -31,7 +31,7 @@ export class AuthService {
     // Log in
     async login({ email, password }) {
         try {
-            return await this.account.createEmailSession(email, password);
+            return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
             throw error;
         }
