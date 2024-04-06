@@ -5,7 +5,7 @@ import appwriteService from '../../appwrite/config'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-function PostForm({ post }) {
+export default function PostForm({ post }) {
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || '',
@@ -20,7 +20,7 @@ function PostForm({ post }) {
 
     const submit = async (data) => {
         if (post) {
-            const file = data.image[0] ? appwriteService.uploadFile(data.image[0]) : null
+            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
 
             if (file) {
                 appwriteService.deleteFile(post.featuredImage)
@@ -55,22 +55,21 @@ function PostForm({ post }) {
         if (value && typeof value === 'string')
             return value
                 .trim()
-                .toLocaleLowerCase()
-                .replace(/^[a-zA-Z\d\s]+/g, '-')
+                .toLowerCase()
+                .replace(/[^a-zA-Z\d\s]+/g, '-')
                 .replace(/\s/g, '-')
+
         return ""
     }, [])
 
     useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === 'title') {
-                setValue('slug', slugTransform(value.title, { shouldValidate: true }))
+                setValue('slug', slugTransform(value.title), { shouldValidate: true })
             }
         })
 
-        return () => {
-            subscription.unsubscribe()
-        }
+        return () => subscription.unsubscribe()
     }, [watch, slugTransform, setValue])
 
     return (
@@ -100,7 +99,7 @@ function PostForm({ post }) {
             </div>
             <div className='w-1/3 px-2'>
                 <Input
-                    label="Image :"
+                    label="Featured Image :"
                     type="file"
                     className="mb-4"
                     accept="image/png, image/gif, image/jpeg, image/jpg"
@@ -108,17 +107,16 @@ function PostForm({ post }) {
                 />
                 {post && (
                     <div className='w-full mb-4'>
-                        <img src={appwriteService.getPreview(post.featuredImage)} alt={post.title} className='rounded-lg' />
+                        <img src={appwriteService.getFilePreview(post.featuredImage)} alt={post.title} className='rounded-lg' />
                     </div>
                 )}
                 <Select
                     options={["active", "inactive"]}
                     label="Status"
                     className="mb-4"
-                    {...register("Status", { required: true })}
+                    {...register("status", { required: true })}
                 />
-                <Button
-                    type='submit'
+                <Button type='submit'
                     bgColor={post ? "bg-green-500" : undefined}
                     className='w-full'>
                     {post ? "Update" : "Submit"}
@@ -128,4 +126,3 @@ function PostForm({ post }) {
     )
 }
 
-export default PostForm
