@@ -9,7 +9,6 @@ export class AuthService {
         this.client
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId);
-
         this.account = new Account(this.client);
     }
 
@@ -34,6 +33,7 @@ export class AuthService {
             return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
             throw error;
+            // console.log("Appwrite service :: login :: error", error);
         }
     }
 
@@ -56,6 +56,7 @@ export class AuthService {
             await this.account.deleteSessions();
         } catch (error) {
             console.log("Appwrite service :: logout :: error", error);
+
         }
     }
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import './App.css'
+// import './App.css'
 import authService from './appwrite/auth'
 import { login, logout } from './store/authSlice'
 import { Header, Footer } from "./components"
@@ -20,7 +20,7 @@ function App() {
         }
       })
       .finally(() => setLoading(false))
-  }, [])
+  }, [setLoading])
 
 
   return !loading ? (
@@ -28,8 +28,10 @@ function App() {
       <div className='w-full block'>
         <Header />
         <main>
-          TODO: <Outlet />
+          <Outlet />
         </main>
+      </div>
+      <div className='w-full block'>
         <Footer />
       </div>
     </div>

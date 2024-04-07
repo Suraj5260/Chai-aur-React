@@ -16,7 +16,9 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <Home />
+        ),
       },
       {
         path: "/login",
@@ -36,7 +38,7 @@ const router = createBrowserRouter([
         path: "/all-posts",
         element: (
           <AuthLayout authentication>
-            {""}
+            {"All posts"}
             <AllPosts />
           </AuthLayout>
         )
@@ -58,7 +60,11 @@ const router = createBrowserRouter([
         )
       }, {
         path: "/post/:slug",
-        element: <Post />
+        element: (
+          <AuthLayout authentication>
+            <Post />
+          </AuthLayout>
+        )
       }
     ]
   }

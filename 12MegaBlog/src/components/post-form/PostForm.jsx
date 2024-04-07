@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 export default function PostForm({ post }) {
+
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || '',
-            slug: post?.slug || '',
+            slug: post?.$id || '',
             content: post?.content || '',
             status: post?.status || 'active',
+            // image: post?.featuredImage || '',
         },
     })
 
@@ -20,10 +22,10 @@ export default function PostForm({ post }) {
 
     const submit = async (data) => {
         if (post) {
-            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
+            const file = data.image[0] ? await appwriteService.updateFile(data.image[0]) : null
 
             if (file) {
-                appwriteService.deleteFile(post.featuredImage)
+                appwriteService.deleteFile(post.$id)
             }
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
@@ -87,7 +89,7 @@ export default function PostForm({ post }) {
                     className="mb-4"
                     {...register('slug', { required: true })}
                     onInput={(e) => {
-                        setValue('slug', slugTransform(e.target.value), { shouldValidate: true })
+                        setValue('slug', slugTransform(e.currentTarget.value), { shouldValidate: true })
                     }}
                 />
                 <RTE
