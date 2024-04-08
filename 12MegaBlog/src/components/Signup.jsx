@@ -22,7 +22,7 @@ function Signup() {
                 navigate("/")
             }
         } catch (error) {
-            setError(error)
+            setError(error.message)
         }
     }
 
@@ -44,8 +44,7 @@ function Signup() {
                         Sign In
                     </Link>
                 </p>
-                {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-
+                {error && <p className="text-red-600 mt-8 text-center">{error.replace('Invalid `password` param: ', '')}</p>}
                 <form onSubmit={handleSubmit(create)}>
                     <div className='space-y-5'>
                         <Input
@@ -62,7 +61,7 @@ function Signup() {
                             {...register("email", {
                                 required: true,
                                 validate: {
-                                    matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) || "Email address must be a valid address",
+                                    matchPattern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) || "Email address must be a valid address",
                                 }
                             })}
                         />
@@ -72,6 +71,9 @@ function Signup() {
                             type="password"
                             {...register("password", {
                                 required: true,
+                                minLength: {
+                                    minLength: (value) => (value.length > 8).test(value) || "Password must be at least 8 characters long",
+                                }
                             })}
                         />
                         <Button
