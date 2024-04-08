@@ -93,6 +93,21 @@ export class Service {
         }
     }
 
+    async getPostsByUser(userId) {
+        try {
+            return await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                [
+                    Query.equal("userId", userId)
+                ]
+            )
+        } catch (error) {
+            console.log("Appwrite service :: getPostsByUser :: error", error);
+            return false
+        }
+    }
+
     // file upload service (storage)
 
     async uploadFile(file) {
@@ -121,16 +136,6 @@ export class Service {
             return false
         }
     }
-
-    // async getFiles() {
-    //     try {
-    //         return await this.bucket.listFiles(
-    //             conf.appwriteBucketId
-    //         )
-    //     } catch (error) {
-    //         console.log("Appwrite service :: getFiles :: error", error);
-    //     }
-    // }
 
     getFilePreview(fileId) {
         return this.bucket.getFilePreview(
