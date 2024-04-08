@@ -8,11 +8,14 @@ function AllPosts() {
     useEffect(() => {
         appwriteService.getPosts().then((posts) => {
             if (posts) {
-                [Query.equal("status", "active")]
+                // [Query.equal("status", "active")]
                 setPosts(posts.documents)
+                // console.log(posts.status);
             }
         })
-    }, [setPosts])
+    }, [])
+
+    // console.log(posts);
 
     return (
         <div className='w-full py-8'>

@@ -6,9 +6,11 @@ function PostCard({
     $id,
     title,
     featuredImage,
+    status
 }) {
     // console.log((appwriteService.getFilePreview(post.featuredImage)));
-    // console.log(post.featuredImage);
+    // console.log(post);
+    console.log(status);
     return (
         <Link to={`/post/${$id}`}>
             <div className='w-full bg-gray-100 rounded-xl p-4'>

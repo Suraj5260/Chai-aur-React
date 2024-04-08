@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import appwriteService from '../appwrite/config'
 import { Container, PostCard } from '../components'
+import { useSelector } from 'react-redux'
+import { Query } from 'appwrite'
 
 function Home() {
     const [posts, setPosts] = useState([])
+    const userData = useSelector((state) => state.auth.userData)
+    // console.log(userData);
+
     useEffect(() => {
-        appwriteService.getPosts().then((posts) => {
+        appwriteService.getPosts([Query.equal("userId", [`${userData.$id}`])]).then((posts) => {
             if (posts) {
                 setPosts(posts.documents)
             }
@@ -18,7 +23,7 @@ function Home() {
                 <Container>
                     <div className='flex flex-wrap'>
                         <div className='w-full p-2'>
-                            <h1 className='text-2xl font-bold hover:text-gray-500'>Login to read posts.</h1>
+                            <h1 className='text-2xl font-bold hover:text-gray-500'>Login to read and create posts.</h1>
                         </div>
                     </div>
                 </Container>
@@ -27,6 +32,13 @@ function Home() {
     }
     return (
         <div className='w-full py-8'>
+            <Container>
+                <div className='flex flex-wrap'>
+                    <div className='w-full p-2'>
+                        <h1 className='text-2xl font-bold hover:text-gray-500'>Your Posts</h1>
+                    </div>
+                </div>
+            </Container>
             <Container>
                 <div className='flex flex-wrap'>
                     {posts.map((post) => (

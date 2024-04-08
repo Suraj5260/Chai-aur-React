@@ -1,5 +1,5 @@
 import conf from "../conf/conf"
-import { Client, ID, Databases, Storage, Query } from "appwrite";
+import { Client, ID, Databases, Storage, Query, Permission, Role } from "appwrite";
 
 export class Service {
     client = new Client()
@@ -79,12 +79,13 @@ export class Service {
         }
     }
 
-    async getPosts(queries = [Query.equal("status", "active")]) {
+    async getPosts(queries = []) {
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                // queries,
+                queries,
+
             )
         } catch (error) {
             console.log("Appwrite service :: getPosts :: error", error);
@@ -99,7 +100,8 @@ export class Service {
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
-                file
+                file,
+                // [Permission.read(Role.any())]
             )
         } catch (error) {
             console.log("Appwrite service :: uploadFile :: error", error);
@@ -119,6 +121,16 @@ export class Service {
             return false
         }
     }
+
+    // async getFiles() {
+    //     try {
+    //         return await this.bucket.listFiles(
+    //             conf.appwriteBucketId
+    //         )
+    //     } catch (error) {
+    //         console.log("Appwrite service :: getFiles :: error", error);
+    //     }
+    // }
 
     getFilePreview(fileId) {
         return this.bucket.getFilePreview(
