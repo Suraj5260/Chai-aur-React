@@ -99,7 +99,8 @@ export class Service {
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 [
-                    Query.equal("userId", userId)
+                    Query.equal("userId", userId),
+                    Query.orderDesc('$updatedAt')
                 ]
             )
         } catch (error) {

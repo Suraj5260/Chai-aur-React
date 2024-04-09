@@ -9,21 +9,19 @@ import authService from '../appwrite/auth'
 function Home() {
 
     // console.log(userData);
-    const userData = useSelector((state) => state.auth)
-    useEffect(() => {
-
-        console.log(userData)
-    })
+    const authStatus = useSelector((state) => state.auth.status)
 
 
 
-    if (userData.status) {
+
+
+    if (authStatus) {
         return (
             <div className='w-full py-8'>
                 <Container>
                     <div className='flex flex-wrap'>
                         <div className='w-full p-2'>
-                            <h1 className='text-2xl font-bold hover:text-gray-500'>Welcome {userData.userData?.name} </h1>
+                            <h1 className='text-2xl font-bold hover:text-gray-500'>Welcome to my website, Do add a post!! </h1>
                         </div>
                     </div>
                 </Container>

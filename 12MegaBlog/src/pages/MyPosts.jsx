@@ -32,13 +32,13 @@ function MyPosts() {
 
     return (
         <div className='w-full py-8'>
-            {/* <Container>
+            <Container>
                 <div className='flex flex-wrap'>
                     <div className='w-full p-2'>
                         <h1 className='text-2xl font-bold hover:text-gray-500'>Your Posts</h1>
                     </div>
                 </div>
-            </Container> */}
+            </Container>
             <Container>
                 <div className='flex flex-wrap'>
                     {posts.map((post) => (

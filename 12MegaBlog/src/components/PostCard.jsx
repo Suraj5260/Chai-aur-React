@@ -10,12 +10,12 @@ function PostCard({
 }) {
     // console.log((appwriteService.getFilePreview(post.featuredImage)));
     // console.log(post);
-    console.log(status);
+    // console.log(status);
     return (
         <Link to={`/post/${$id}`}>
             <div className='w-full bg-gray-100 rounded-xl p-4'>
                 <div className='w-full justify-center mb-4'>
-                    <img src={(appwriteService.getFilePreview(featuredImage))} alt={title}
+                    <img src={(appwriteService.getFilePreview(featuredImage))} loading='lazy' alt={title}
                         className='rounded-xl' />
                 </div>
                 <h2

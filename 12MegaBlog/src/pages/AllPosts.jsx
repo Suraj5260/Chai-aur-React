@@ -6,16 +6,16 @@ import { Query } from 'appwrite'
 function AllPosts() {
     const [posts, setPosts] = useState([])
     useEffect(() => {
-        appwriteService.getPosts().then((posts) => {
+        appwriteService.getPosts(
+            [Query.orderDesc('$updatedAt')]
+        ).then((posts) => {
             if (posts) {
-                // [Query.equal("status", "active")]
                 setPosts(posts.documents)
-                // console.log(posts.status);
             }
         })
     }, [])
 
-    // console.log(posts);
+    console.log(posts);
 
     return (
         <div className='w-full py-8'>
