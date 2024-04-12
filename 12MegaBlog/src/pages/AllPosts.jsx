@@ -15,10 +15,17 @@ function AllPosts() {
         })
     }, [])
 
-    console.log(posts);
+    // console.log(posts);
 
     return (
         <div className='w-full py-8'>
+            <Container>
+                <div className='flex flex-wrap'>
+                    <div className='w-full p-2'>
+                        <h1 className='text-2xl font-bold pb-4 '>All Posts</h1>
+                    </div>
+                </div>
+            </Container>
             <Container>
                 <div className='flex flex-wrap'>
                     {posts.map((post) => (

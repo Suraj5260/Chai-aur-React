@@ -35,7 +35,7 @@ function MyPosts() {
             <Container>
                 <div className='flex flex-wrap'>
                     <div className='w-full p-2'>
-                        <h1 className='text-2xl font-bold hover:text-gray-500'>Your Posts</h1>
+                        <h1 className='text-2xl font-bold pb-4'>My Posts</h1>
                     </div>
                 </div>
             </Container>
